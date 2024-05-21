@@ -1,0 +1,94 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Quotes API",
+    "description": "Basic OpenAPI spec for the quotes API",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "/api/v1/"
+    }
+  ],
+  "security": [
+    {
+      "api_auth": []
+    }
+  ],
+  "paths": {
+    "/quotes": {
+      "get": {
+        "tags": [
+          "Quotes"
+        ],
+        "summary": "Retrieve cached quotes from the API",
+        "operationId": "fetchQuotes",
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Quote"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Quotes"
+        ],
+        "summary": "Clear cached quotes and retrieve a new set",
+        "operationId": "refreshQuotes",
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Quote"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Quote": {
+        "type": "object",
+        "properties": {
+          "quote": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "api_auth": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    }
+  }
+}
